@@ -76,7 +76,58 @@ def delete_category(id):
 
     return make_response({'{Category.title} successfully deleted'})
 
+@category_bp.route("/<id>/packages", methods=["GET"])
+def gets_packages_of_one_category(id):
 
-# @package_bp.route("", methods=["GET"])
-# def get_on
+    category = find_by_id(Category, id)
+    packages_of_category =[]  
+    
+    for package in category.package:
+        packages_of_category.append(
+            {
+                "id": package.id,
+                "title" : package.title,
+                "description" : package.description,
+                "votes" : package.votes
+            })
+    return make_response(jsonify({"id":package.id,"title":package.title,"packages":packages_of_category})),200 
+
+@package_bp.route("", methods=["GET"])
+def get_all_packages():
+    package_response = []
+    packages = Package.query.all()
+    for package in packages:
+        package_response.append({
+            "id": package.id,
+            "title" : package.title,
+            "description" : package.description,
+            "votes" : package.votes
+    })
+    return jsonify(package_response)
+
+@package_bp.route("/<package_id>/packages", methods=["GET"])
+def get_one_package(id):
+
+    category = find_by_id(Category, id)
+    packages_of_category =[]  
+    
+    for package in category.package:
+        packages_of_category.append(
+            {
+                "id": package.id,
+                "title" : package.title,
+                "description" : package.description,
+                "votes" : package.votes
+            })
+    return make_response(jsonify({"id":package.id,"title":package.title,"packages":packages_of_category})),200 
+
+@package_bp.route("/<package_id>", methods=["PATCH"])
+def add_votes(package_id):
+    package = find_by_id(Package, package_bp)
+
+    package.votes += 1
+
+    db.session.commit()
+
+    return make_response(jsonify({"id":package.package_id,"likes": package.likes})),200 
 

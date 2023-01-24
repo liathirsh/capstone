@@ -1,9 +1,9 @@
 from app import db
 
 class Package(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    package_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
-    description = db.Column(db.string)
+    description = db.Column(db.String)
     votes = db.Column(db.Integer, default=0)
     category = db.relationship("Package", back_populates="package")
     category_id = db.Column(db.Integer, db.ForeignKey('Category.id'), nullable=True)
@@ -19,6 +19,6 @@ class Package(db.Model):
     def add_to_database(cls, req_body):
         return cls(
             title=req_body["title"],
-            description=req_body['description']
+            description=req_body['description'],
             votes = req_body["votes"]
         )
