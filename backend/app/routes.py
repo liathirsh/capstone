@@ -121,6 +121,24 @@ def get_one_package(id):
             })
     return make_response(jsonify({"id":package.id,"title":package.title,"packages":packages_of_category})),200 
 
+@package_bp.route("", methods = ["POST"])
+def create_package():
+
+    request_body = request.get_json()
+
+    try:
+        new_package = Package.add_to_database(request_body)
+
+        db.session.add(new_package)
+        db.session.commit()
+
+        return make_response(jsonify(new_package.to_dict())), 201
+
+    except:
+        if not (request_body.get("title")):
+            abort(make_response({"details": "Invalid data"}, 400))
+
+
 @package_bp.route("/<package_id>", methods=["PATCH"])
 def add_votes(package_id):
     package = find_by_id(Package, package_bp)
