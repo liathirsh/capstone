@@ -4,7 +4,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title=db.Column(db.String)
     description = db.Column(db.String)
-    package = db.relationship("Package", back_populates = "package", lazy=True)
+    packages = db.relationship("Package", back_populates = "category", lazy=True)
 
     def create_response_dict (self):
         return {

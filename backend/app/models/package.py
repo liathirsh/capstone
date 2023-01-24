@@ -1,13 +1,13 @@
 from app import db
 
 class Package(db.Model):
-    package_id = db.Column(db.Integer, primary_key=True)
+    package_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String)
     description = db.Column(db.String)
     votes = db.Column(db.Integer, default=0)
-    category = db.relationship("Package", back_populates="package")
-    category_id = db.Column(db.Integer, db.ForeignKey('Category.id'), nullable=True)
-    
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category = db.relationship("Category", back_populates="packages")
+
     def create_response_dict (self):
         return {
             "id": self.id,

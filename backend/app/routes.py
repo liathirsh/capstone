@@ -5,8 +5,8 @@ import os
 from app.models.category import Category
 from app.models.package import Package
 
-category_bp = Blueprint("category", __name__, url_prefix="/category")
-package_bp = Blueprint("package", __name__, url_prefix="/package")
+category_bp = Blueprint("category", __name__, url_prefix="/categories")
+package_bp = Blueprint("package", __name__, url_prefix="/packages")
 vote_bp = Blueprint("vote", __name__, url_prefix="/vote")
 
 def find_by_id(cls, id):
