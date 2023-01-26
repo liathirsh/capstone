@@ -1,7 +1,9 @@
 import "./App.css";
 import Category from "./components/Category";
+import PackageList from "./components/PackageList";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const URL = "http://localhost:5000/categories";
 
@@ -71,7 +73,7 @@ const App = () => {
           categories={categoryData}
           onPackageClicked={handleCategoryClicked}
         />
-        {packageData}
+        <PackageList packages={packageData} />
       </section>
     </div>
   );
