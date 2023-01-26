@@ -1,7 +1,10 @@
 import Package from "./Package";
 
 const PackageList = (props) => {
+  console.log(props);
   const packages = props.packages;
+
+  console.log(packages);
 
   return (
     <div>

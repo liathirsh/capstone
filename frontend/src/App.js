@@ -6,6 +6,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const URL = "http://localhost:5000/categories";
+const PackageURL = "http://localhost:5000/packages";
 
 const App = () => {
   const [categoryData, setCategoryData] = useState([]);
@@ -46,7 +47,7 @@ const App = () => {
     axios
       .get(`${URL}/${category.id}/packages`)
       .then((response) => {
-        const packagesDisplay = response.data.packages.map((eachPackage) => {
+        const packagesDisplay = response.data.map((eachPackage) => {
           return {
             id: eachPackage.id,
             title: eachPackage.title,
@@ -61,6 +62,7 @@ const App = () => {
         console.log(error);
       });
   };
+
   return (
     <div>
       <section>
