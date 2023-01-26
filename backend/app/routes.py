@@ -101,7 +101,7 @@ def get_all_packages():
     packages = Package.query.all()
     for package in packages:
         package_response.append({
-            "id": package.id,
+            "id": package.package_id,
             "title" : package.title,
             "description" : package.description,
             "votes" : package.votes
@@ -117,12 +117,12 @@ def get_one_package(package_id):
     for package in category.package:
         packages_of_category.append(
             {
-                "id": package.id,
+                "id": package.package_id,
                 "title" : package.title,
                 "description" : package.description,
                 "votes" : package.votes
             })
-    return make_response(jsonify({"id":package.id,"title":package.title,"packages":packages_of_category})),200 
+    return make_response(jsonify({"id":package.package_id,"title":package.title,"packages":packages_of_category})),200 
 
 @package_bp.route("", methods=["POST"])
 def create_package():
@@ -142,11 +142,11 @@ def create_package():
 
 @package_bp.route("/<package_id>", methods=["PATCH"])
 def add_votes(package_id):
-    package = find_by_id(Package, package_bp)
+    package = find_by_id(Package, package_id)
 
     package.votes += 1
 
     db.session.commit()
 
-    return make_response(jsonify({"id":package.package_id,"likes": package.likes})),200 
+    return make_response(jsonify({"id":package.package_id,"votes": package.votes})),200 
 
