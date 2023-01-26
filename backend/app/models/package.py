@@ -13,12 +13,14 @@ class Package(db.Model):
             "id": self.package_id,
             "title": self.title,
             "description": self.description,
-            "votes":self.votes
+            "votes":self.votes,
             }
+
     @classmethod
     def add_to_database(cls, req_body):
         return cls(
             title=req_body["title"],
             description=req_body['description'],
-            votes = req_body["votes"]
+            votes = req_body["votes"],
+            category_id = req_body['category_id']
         )

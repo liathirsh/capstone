@@ -25,11 +25,11 @@ def find_by_id(cls, id):
 
 @category_bp.route("", methods=["GET"])
 def get_all_categories():
-    category = Category.query.all()
+    categories = Category.query.all()
 
-    category_list = [c.create_response_dict() for c in category]
+    category_response = [category.create_response_dict() for category in categories]
     
-    return jsonify(category_list)
+    return jsonify(category_response), 200
 
 @category_bp.route("/<id>", methods=["GET"])
 def get_one_category(id):
@@ -80,17 +80,20 @@ def delete_category(id):
 def gets_packages_of_one_category(id):
 
     category = find_by_id(Category, id)
-    packages_of_category =[]  
-    
-    for package in category.package:
-        packages_of_category.append(
-            {
-                "id": package.id,
-                "title" : package.title,
-                "description" : package.description,
-                "votes" : package.votes
-            })
-    return make_response(jsonify({"id":package.id,"title":package.title,"packages":packages_of_category})),200 
+    # packages_of_category = [package.create_response_dict() for package in category.packages]
+
+    packages_of_category = []
+
+    for package in category.packages:
+            packages_of_category.append(
+                {
+                    "id": package.package_id,
+                    "title": package.title,
+                    "description": package.description,
+                    "votes":package.votes
+                }
+            )
+    return make_response(jsonify(packages_of_category)),200 
 
 @package_bp.route("", methods=["GET"])
 def get_all_packages():

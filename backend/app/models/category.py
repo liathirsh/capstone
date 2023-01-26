@@ -10,7 +10,7 @@ class Category(db.Model):
         return {
             "id": self.id,
             "title": self.title,
-            "description": self.description
+            "description": self.description,
             }
     @classmethod
     def add_to_database(cls, req_body):
