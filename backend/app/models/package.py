@@ -10,7 +10,7 @@ class Package(db.Model):
 
     def create_response_dict (self):
         return {
-            "id": self.package_id,
+            "package_id": self.package_id,
             "title": self.title,
             "description": self.description,
             "votes":self.votes,

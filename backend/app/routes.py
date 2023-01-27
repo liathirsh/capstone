@@ -80,7 +80,6 @@ def delete_category(id):
 def gets_packages_of_one_category(id):
 
     category = find_by_id(Category, id)
-    # packages_of_category = [package.create_response_dict() for package in category.packages]
 
     packages_of_category = []
 
@@ -110,19 +109,10 @@ def get_all_packages():
 
 @package_bp.route("/<package_id>", methods=["GET"])
 def get_one_package(package_id):
-
-    category = find_by_id(Category, package_id)
-    packages_of_category =[]  
+  
+    package = find_by_id(Package, package_id)
     
-    for package in category.package:
-        packages_of_category.append(
-            {
-                "id": package.package_id,
-                "title" : package.title,
-                "description" : package.description,
-                "votes" : package.votes
-            })
-    return make_response(jsonify({"id":package.package_id,"title":package.title,"packages":packages_of_category})),200 
+    return jsonify(package.create_response_dict()), 200
 
 @package_bp.route("", methods=["POST"])
 def create_package():
