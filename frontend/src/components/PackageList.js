@@ -4,8 +4,6 @@ const PackageList = (props) => {
   console.log(props);
   const packages = props.packages;
 
-  console.log(packages);
-
   return (
     <div>
       {packages.map((pythonPackage, id) => (
@@ -13,8 +11,9 @@ const PackageList = (props) => {
           id={pythonPackage.id}
           title={pythonPackage.title}
           votes={pythonPackage.likes}
-          description={pythonPackage.message}
+          description={pythonPackage.description}
           key={id}
+          onVotes={props.onVotes}
         />
       ))}
     </div>
