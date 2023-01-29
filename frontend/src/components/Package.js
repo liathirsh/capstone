@@ -5,13 +5,8 @@ const PackageURL = "http://localhost:5000/packages";
 
 const Package = (props) => {
   const [votesCount, setVotesCount] = useState(props.votes);
-  const [displayButton, setDisplayButton] = useState(false);
-  console.log(props);
+  //const [votesDisplay, setVotesDisplay] = useState(false);
 
-  // Right now, there is no way to verify 1 person 1 vote.
-  //You should only vote once per category.
-  //Once a button is triggered, you shouldn't allowed to vote at all
-  // This needs to be fixed
   //show the number of total votes after clicking
   //reset vote (takes 1 vote away and adds another vote)
 
@@ -20,7 +15,7 @@ const Package = (props) => {
       .patch(`${PackageURL}/${props.id}`)
       .then(() => {
         setVotesCount(votesCount + 1);
-        setDisplayButton(!displayButton);
+        props.setShowVotes(true);
         props.setShowButton(false);
       })
       .catch((error) => {
@@ -31,18 +26,16 @@ const Package = (props) => {
 
   return (
     <div>
+      <h3> </h3>
       <section>
-        <h2> {props.title} </h2>
+        <h2>{props.title} </h2>
         {props.showButton && (
-          <button
-            type="button"
-            onClick={handleVotesCount}
-            disabled={displayButton}
-          >
+          <button type="button" onClick={handleVotesCount}>
             ⬆️
           </button>
         )}{" "}
       </section>
+      <h3> {props.showVotes && props.votes} </h3>
       <p> {props.description}</p>
     </div>
   );

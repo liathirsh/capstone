@@ -69,25 +69,6 @@ const App = () => {
       });
   };
 
-  // const handleVotesCount = (id) => {
-  //   axios
-  //     .patch(`${PackageURL}/${id}`)
-  //     .then(() => {
-  //       setVotesCount(votesCount + 1);
-  //       setDisplayButton(!displayButton);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       alert("Unable to vote");
-  //     });
-  // };
-
-  const hideButtons = () => {
-    setDisplayButton(true);
-  };
-
-  //const packageClicked = () => {
-
   return (
     <div>
       <section>

@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 
 const PackageList = (props) => {
   const [showButton, setShowButton] = useState(true);
-
+  const [showVotes, setShowVotes] = useState(false);
   const packages = props.packages;
 
   useEffect(() => {
     setShowButton(true);
+    setShowVotes(false);
   }, [packages]);
 
   return (
@@ -21,7 +22,8 @@ const PackageList = (props) => {
           key={id}
           showButton={showButton}
           setShowButton={setShowButton}
-          // onVoting={props.onVoting}
+          showVotes={showVotes}
+          setShowVotes={setShowVotes}
         />
       ))}
     </div>
