@@ -1,6 +1,7 @@
 import "./App.css";
 import Category from "./components/Category";
 import PackageList from "./components/PackageList";
+import LeadershipBoard from "./components/LeadershipBoard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,9 +12,9 @@ const PackageURL = "http://localhost:5000/packages";
 const App = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [packageData, setPackageData] = useState([]);
-  const [showVoteButton, setShowVoteButton] = useState(false);
-  const [votesCount, setVotesCount] = useState([]);
+  const [votesCount, setVotesCount] = useState(packageData.votes);
   const [displayButton, setDisplayButton] = useState(false);
+  const [showLeadershipBoard, setShowLeadershipBoard] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState({
     title: "",
     description: "",
@@ -51,6 +52,7 @@ const App = () => {
       .get(`${URL}/${category.id}/packages`)
       .then((response) => {
         const packagesDisplay = response.data.map((eachPackage) => {
+          console.log(eachPackage.votes);
           return {
             id: eachPackage.id,
             title: eachPackage.title,
@@ -63,26 +65,28 @@ const App = () => {
       })
       .catch((error) => {
         console.log(error);
+        alert("Unable to load packages");
       });
   };
 
-  const handleVotesCount = (id) => {
-    axios
-      .patch(`${PackageURL}/${id}`)
-      .then(() => {
-        setVotesCount(votesCount + 1);
-        console.log(votesCount);
-        setDisplayButton(!displayButton);
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Unable to vote");
-      });
-  };
+  // const handleVotesCount = (id) => {
+  //   axios
+  //     .patch(`${PackageURL}/${id}`)
+  //     .then(() => {
+  //       setVotesCount(votesCount + 1);
+  //       setDisplayButton(!displayButton);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       alert("Unable to vote");
+  //     });
+  // };
 
   const hideButtons = () => {
-    setShowVoteButton(!showVoteButton);
+    setDisplayButton(true);
   };
+
+  //const packageClicked = () => {
 
   return (
     <div>
@@ -96,9 +100,9 @@ const App = () => {
           categories={categoryData}
           onPackageClicked={handleCategoryClicked}
         />
-        <PackageList packages={packageData} onVotes={handleVotesCount} />
-        <p> {votesCount} </p>
+        <PackageList packages={packageData} />
       </section>
+      {showLeadershipBoard && <h1> Leadership Board </h1>}
     </div>
   );
 };
