@@ -5,10 +5,7 @@ const PackageURL = "http://localhost:5000/packages";
 
 const Package = (props) => {
   const [votesCount, setVotesCount] = useState(props.votes);
-  //const [votesDisplay, setVotesDisplay] = useState(false);
-
-  //show the number of total votes after clicking
-  //reset vote (takes 1 vote away and adds another vote)
+  const [descriptionDisplay, setdescriptionDisplay] = useState(false);
 
   const handleVotesCount = () => {
     axios
@@ -24,19 +21,31 @@ const Package = (props) => {
       });
   };
 
+  //create a function the displays only the first sentence with a ... and then learn more can be the button
+
   return (
     <div>
       <h3> </h3>
-      <section>
-        <h2>{props.title} </h2>
-        {props.showButton && (
-          <button type="button" onClick={handleVotesCount}>
-            ⬆️
-          </button>
-        )}{" "}
+      <section class="container">
+        <div class="col">
+          <h2>{props.title} </h2>
+        </div>
+        <div class="col">
+          <h3> {props.showVotes && props.votes} </h3>
+          {props.showButton && (
+            <button type="button" onClick={handleVotesCount}>
+              ⬆️
+            </button>
+          )}{" "}
+        </div>
       </section>
-      <h3> {props.showVotes && props.votes} </h3>
-      <p> {props.description}</p>
+      <section>
+        <div>{descriptionDisplay && props.description}</div>
+        <br></br>
+        <button onClick={() => setdescriptionDisplay(!descriptionDisplay)}>
+          {descriptionDisplay === true ? "Hide Description" : "Learn More"}
+        </button>
+      </section>
     </div>
   );
 };

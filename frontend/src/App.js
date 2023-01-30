@@ -1,4 +1,5 @@
 import "./App.css";
+
 import Category from "./components/Category";
 import PackageList from "./components/PackageList";
 import LeadershipBoard from "./components/LeadershipBoard";
@@ -12,9 +13,10 @@ const PackageURL = "http://localhost:5000/packages";
 const App = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [packageData, setPackageData] = useState([]);
-  const [votesCount, setVotesCount] = useState(packageData.votes);
-  const [displayButton, setDisplayButton] = useState(false);
+  //const [displayButton, setDisplayButton] = useState(false);
+  //const [allPackageData, setAllPackageData] = useState({});
   const [showLeadershipBoard, setShowLeadershipBoard] = useState(false);
+  const [leadershipBoardData, setLeadershipBoardData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({
     title: "",
     description: "",
@@ -25,7 +27,6 @@ const App = () => {
     axios
       .get(URL)
       .then((response) => {
-        console.log(response);
         const allCategories = response.data.map((category) => {
           return {
             id: category.id,
@@ -40,6 +41,25 @@ const App = () => {
         alert("Unable to retrieve categories");
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(PackageURL)
+      .then((response) => {
+        const allPackages = response.data.map((eachPackage) => {
+          return {
+            id: eachPackage.id,
+            title: eachPackage.title,
+            votes: eachPackage.votes,
+            categoryId: eachPackage.category_id,
+          };
+        });
+        setLeadershipBoardData(allPackages);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [leadershipBoardData]);
 
   const handleCategoryClicked = (id) => {
     const category = categoryData.find((category) => {
@@ -69,21 +89,56 @@ const App = () => {
       });
   };
 
+  const topThreePackages = () => {
+    setLeadershipBoardData(
+      [...leadershipBoardData].sort((a, b) => {
+        if (a.votes < b.votes) {
+          return -1;
+        } else if (b.votes < a.votes) {
+          return 1;
+        } else {
+          return 0;
+        }
+      })
+    );
+    setLeadershipBoardData(leadershipBoardData.slice(0, 3));
+  };
+
+  // write a function that takes all of the votes and sees who has the most
+  // this gets sent to the leadership board and that handles rendering of votes
+  // sort by category, sort by package etc.
+
   return (
     <div>
-      <section>
-        <h1> Popular Python Packages</h1>
-        <h2> About this site </h2>
-        <p> More Information </p>
+      <section class="container">
+        <section class="col p-4 m-1 bg-info">
+          <h1> Popular Python Packages</h1>
+        </section>
+        <section class="row">
+          <section class="col-8 p-4 m-1 bg-info">
+            <h2> About this site </h2>
+          </section>
+          <section class="col p-4 m-1 bg-info">
+            <p> More Information </p>
+          </section>
+        </section>
       </section>
-      <section>
+      <section class="container">
         <Category
           categories={categoryData}
           onPackageClicked={handleCategoryClicked}
         />
-        <PackageList packages={packageData} />
+        <PackageList
+          packages={packageData}
+          showLeadershipBoard={topThreePackages}
+        />
       </section>
-      {showLeadershipBoard && <h1> Leadership Board </h1>}
+      {/* <h2 onClick={() => setShowLeadershipBoard(!showLeadershipBoard)}>
+        {" "}
+        Click here when you're done voting
+        {showLeadershipBoard === true ? { topThreePackages } : "Learn More"}
+      </h2>
+      <LeadershipBoard leadershipData={leadershipBoardData}></LeadershipBoard> */}
     </div>
   );
 };

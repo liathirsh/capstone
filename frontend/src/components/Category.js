@@ -1,7 +1,7 @@
 const Category = (props) => {
   const returnedCategories = props.categories.map((category) => {
     return (
-      <div key={category.id}>
+      <div class="container" key={category.id}>
         <li onClick={() => props.onPackageClicked(category.id)}>
           {" "}
           {category.title}{" "}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 const PackageList = (props) => {
   const [showButton, setShowButton] = useState(true);
   const [showVotes, setShowVotes] = useState(false);
+  const [showLeadershipBoard, setShowLeadershipBoard] = useState(false);
   const packages = props.packages;
 
   useEffect(() => {
