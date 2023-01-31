@@ -28,9 +28,9 @@ const Package = (props) => {
   return (
     <div class="col">
       <div class="col-md">
-        <section class="card">
+        <section class="card border-primary mb-3">
           <div>
-            <h2 class="card-header text-bg-primary mb-3 text-center">
+            <h2 class="card-header text-white bg-primary mb-3 text-center text-uppercase fw-bold">
               {props.title}{" "}
             </h2>
           </div>
@@ -53,7 +53,10 @@ const Package = (props) => {
           <div class="card-body text-secondary">
             {descriptionDisplay && props.description}
           </div>
-          <button onClick={() => setdescriptionDisplay(!descriptionDisplay)}>
+          <button
+            class="btn btn-outline-primary"
+            onClick={() => setdescriptionDisplay(!descriptionDisplay)}
+          >
             {descriptionDisplay === true ? "Hide Description" : "Learn More"}
           </button>
         </section>

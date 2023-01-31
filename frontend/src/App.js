@@ -5,7 +5,8 @@ import PackageList from "./components/PackageList";
 import LeadershipBoard from "./components/LeadershipBoard";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootswatch/dist/journal/bootstrap.min.css";
 
 const URL = "http://localhost:5000/categories";
 const PackageURL = "http://localhost:5000/packages";
@@ -110,25 +111,86 @@ const App = () => {
 
   return (
     <div>
-      <section class="container marketing">
-        <section class="col p-4 m-1 bg-info">
-          <h1> Popular Python Packages</h1>
-        </section>
-        <section class="row">
-          <section class="col-8 p-4 m-1 bg-info">
-            <h2> About this site </h2>
-          </section>
-          <section class="col p-4 m-1 bg-info">
-            <p> More Information </p>
-          </section>
-        </section>
-      </section>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            Popular Python Packages
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarColor01"
+            aria-controls="navbarColor01"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  Home
+                  <span class="visually-hidden">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  About
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  LeadershipBoard
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  href="#"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">
+                    Home
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    About
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    Leadership Board
+                  </a>
+                  <div class="dropdown-divider"></div>
+                </div>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input
+                class="form-control me-sm-2"
+                type="search"
+                placeholder="Search"
+              />
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
       <span class="border border-primary">
         <section class="container">
           <Category
             categories={categoryData}
             onPackageClicked={handleCategoryClicked}
           />
+          <br></br>
+          <br></br>
           <section>
             <PackageList
               packages={packageData}
