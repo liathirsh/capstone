@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+// import Button from "react-bootstrap/Button";
+// import Card from "react-bootstrap/Card";
 
 const PackageURL = "http://localhost:5000/packages";
 
@@ -24,28 +26,38 @@ const Package = (props) => {
   //create a function the displays only the first sentence with a ... and then learn more can be the button
 
   return (
-    <div>
-      <h3> </h3>
-      <section class="container">
-        <div class="col">
-          <h2>{props.title} </h2>
-        </div>
-        <div class="col">
-          <h3> {props.showVotes && props.votes} </h3>
-          {props.showButton && (
-            <button type="button" onClick={handleVotesCount}>
-              ⬆️
-            </button>
-          )}{" "}
-        </div>
-      </section>
-      <section>
-        <div>{descriptionDisplay && props.description}</div>
-        <br></br>
-        <button onClick={() => setdescriptionDisplay(!descriptionDisplay)}>
-          {descriptionDisplay === true ? "Hide Description" : "Learn More"}
-        </button>
-      </section>
+    <div class="col">
+      <div class="col-md">
+        <section class="card">
+          <div>
+            <h2 class="card-header text-bg-primary mb-3 text-center">
+              {props.title}{" "}
+            </h2>
+          </div>
+          <div class="col">
+            <h3 class="card-subtitle mb-2 text-muted text-center">
+              {props.showVotes && props.votes}
+            </h3>
+            <div class="text-center">
+              {props.showButton && (
+                <button
+                  type="button"
+                  class="btn btn-primary btn-xl"
+                  onClick={handleVotesCount}
+                >
+                  ⬆️
+                </button>
+              )}
+            </div>
+          </div>
+          <div class="card-body text-secondary">
+            {descriptionDisplay && props.description}
+          </div>
+          <button onClick={() => setdescriptionDisplay(!descriptionDisplay)}>
+            {descriptionDisplay === true ? "Hide Description" : "Learn More"}
+          </button>
+        </section>
+      </div>
     </div>
   );
 };

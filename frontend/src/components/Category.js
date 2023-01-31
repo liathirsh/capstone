@@ -1,11 +1,18 @@
 const Category = (props) => {
-  const returnedCategories = props.categories.map((category) => {
+  const categories = props.categories;
+
+  const returnedCategories = categories.map((category) => {
     return (
       <div class="container" key={category.id}>
-        <li onClick={() => props.onPackageClicked(category.id)}>
-          {" "}
-          {category.title}{" "}
-        </li>
+        <div class="circle-singleline">
+          <li
+            class="circle-singleline"
+            onClick={() => props.onPackageClicked(category.id)}
+          >
+            {" "}
+            {category.title}{" "}
+          </li>
+        </div>
       </div>
     );
   });

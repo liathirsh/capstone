@@ -110,7 +110,7 @@ const App = () => {
 
   return (
     <div>
-      <section class="container">
+      <section class="container marketing">
         <section class="col p-4 m-1 bg-info">
           <h1> Popular Python Packages</h1>
         </section>
@@ -123,22 +123,26 @@ const App = () => {
           </section>
         </section>
       </section>
-      <section class="container">
-        <Category
-          categories={categoryData}
-          onPackageClicked={handleCategoryClicked}
-        />
-        <PackageList
-          packages={packageData}
-          showLeadershipBoard={topThreePackages}
-        />
-      </section>
-      {/* <h2 onClick={() => setShowLeadershipBoard(!showLeadershipBoard)}>
+      <span class="border border-primary">
+        <section class="container">
+          <Category
+            categories={categoryData}
+            onPackageClicked={handleCategoryClicked}
+          />
+          <section>
+            <PackageList
+              packages={packageData}
+              showLeadershipBoard={topThreePackages}
+            />
+          </section>
+        </section>
+        {/* <h2 onClick={() => setShowLeadershipBoard(!showLeadershipBoard)}>
         {" "}
         Click here when you're done voting
         {showLeadershipBoard === true ? { topThreePackages } : "Learn More"}
       </h2>
       <LeadershipBoard leadershipData={leadershipBoardData}></LeadershipBoard> */}
+      </span>
     </div>
   );
 };

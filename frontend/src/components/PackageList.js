@@ -13,7 +13,7 @@ const PackageList = (props) => {
   }, [packages]);
 
   return (
-    <div>
+    <div class="row">
       {packages.map((pythonPackage, id) => (
         <Package
           id={pythonPackage.id}
