@@ -3,13 +3,13 @@ const Category = (props) => {
 
   const returnedCategories = categories.map((category) => {
     return (
-      <div class="container" key={category.id}>
+      <div className="container" key={category.id}>
         <li
-          class="card border-primary mb-3 align-items-center"
+          className="card border-primary mb-3 align-items-center"
           onClick={() => props.onPackageClicked(category.id)}
         >
-          <div class="d-flex w-200 justify-content-between">
-            <h1 class="mb-1">{category.title}</h1>
+          <div className="d-flex w-200 justify-content-between">
+            <h1 className="mb-3">{category.title}</h1>
 
             {/* <small class="text-muted">{category.description}</small> */}
           </div>
@@ -20,9 +20,9 @@ const Category = (props) => {
   return (
     <div>
       <h1> Categories</h1>
-      <medium class="text-muted">Click on a category to learn more </medium>
+      <medium className="text-muted">Click on a category to learn more </medium>
 
-      <ul class="list-group"> {returnedCategories} </ul>
+      <ul className="list-group"> {returnedCategories} </ul>
     </div>
   );
 };
