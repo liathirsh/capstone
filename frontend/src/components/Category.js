@@ -6,7 +6,7 @@ const Category = (props) => {
       <div className="container" key={category.id}>
         <li
           className="card border-primary mb-3 align-items-center"
-          onClick={() => props.onPackageClicked(category.id)}
+          onClick={() => props.onCategoryClicked(category.id)}
         >
           <div className="d-flex w-200 justify-content-between">
             <h1 className="mb-3">{category.title}</h1>

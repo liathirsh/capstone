@@ -23,6 +23,8 @@ const Package = (props) => {
       });
   };
 
+  // bug where votescount only shows up after being refreshed
+  // packages should always show up in the same order
   //create a function the displays only the first sentence with a ... and then learn more can be the button
 
   return (

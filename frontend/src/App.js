@@ -18,6 +18,7 @@ const App = () => {
   //const [allPackageData, setAllPackageData] = useState({});
   const [showLeadershipBoard, setShowLeadershipBoard] = useState(false);
   const [leadershipBoardData, setLeadershipBoardData] = useState([]);
+  const [sortedPackages, setSortedPackages] = useState(packageData);
   const [selectedCategory, setSelectedCategory] = useState({
     title: "",
     description: "",
@@ -43,24 +44,24 @@ const App = () => {
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(PackageURL)
-      .then((response) => {
-        const allPackages = response.data.map((eachPackage) => {
-          return {
-            id: eachPackage.id,
-            title: eachPackage.title,
-            votes: eachPackage.votes,
-            categoryId: eachPackage.category_id,
-          };
-        });
-        setLeadershipBoardData(allPackages);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [leadershipBoardData]);
+  // useEffect(() => {
+  //   axios
+  //     .get(PackageURL)
+  //     .then((response) => {
+  //       const allPackages = response.data.map((eachPackage) => {
+  //         return {
+  //           id: eachPackage.id,
+  //           title: eachPackage.title,
+  //           votes: eachPackage.votes,
+  //           categoryId: eachPackage.category_id,
+  //         };
+  //       });
+  //       setLeadershipBoardData(allPackages);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const handleCategoryClicked = (id) => {
     const category = categoryData.find((category) => {
@@ -73,7 +74,6 @@ const App = () => {
       .get(`${URL}/${category.id}/packages`)
       .then((response) => {
         const packagesDisplay = response.data.map((eachPackage) => {
-          console.log(eachPackage.votes);
           return {
             id: eachPackage.id,
             title: eachPackage.title,
@@ -81,7 +81,21 @@ const App = () => {
             votes: eachPackage.votes,
           };
         });
-        setPackageData(packagesDisplay);
+        setPackageData(
+          //Sorts the data so it renders alphabetically
+          [...packagesDisplay].sort((a, b) => {
+            // if return value is negative, a comes first
+            const atitle = a.title.toLowerCase();
+            const btitle = b.title.toLowerCase();
+            if (atitle < btitle) {
+              return -1;
+            } else if (btitle < atitle) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })
+        );
         setSelectedCategory(category);
       })
       .catch((error) => {
@@ -187,7 +201,7 @@ const App = () => {
         <section class="container">
           <Category
             categories={categoryData}
-            onPackageClicked={handleCategoryClicked}
+            onCategoryClicked={handleCategoryClicked}
           />
           <br></br>
           <br></br>
