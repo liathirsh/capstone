@@ -38,7 +38,7 @@ const Package = (props) => {
           </div>
           <div class="col">
             <h3 class="card-subtitle mb-2 text-muted text-center">
-              {props.showVotes && props.votes}
+              {props.showVotes && votesCount}
             </h3>
             <div class="text-center">
               {props.showButton && (
