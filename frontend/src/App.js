@@ -57,7 +57,17 @@ const App = () => {
             categoryId: eachPackage.category_id,
           };
         });
-        setAllPackageData(allPackages);
+        setAllPackageData(
+          [...allPackageData].sort((a, b) => {
+            if (a.votes < b.votes) {
+              return 1;
+            } else if (b.votes < a.votes) {
+              return -1;
+            } else {
+              return 0;
+            }
+          })
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -103,21 +113,6 @@ const App = () => {
         console.log(error);
         alert("Unable to load packages");
       });
-  };
-
-  const topThreePackages = () => {
-    setLeadershipBoardData(
-      [...allPackageData].sort((a, b) => {
-        if (a.votes < b.votes) {
-          return -1;
-        } else if (b.votes < a.votes) {
-          return 1;
-        } else {
-          return 0;
-        }
-      })
-    );
-    //setLeadershipBoardData(leadershipBoardData.slice(0, 3));
   };
 
   // write a function that takes all of the votes and sees who has the most
@@ -215,7 +210,7 @@ const App = () => {
             {showLeadershipBoard && (
               <LeadershipBoard
                 packageData={allPackageData}
-                onBoardClicked={topThreePackages}
+
                 //onLeadershipBoardClicked={getAllPackages}
               />
             )}
