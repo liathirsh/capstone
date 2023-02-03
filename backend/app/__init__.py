@@ -18,6 +18,7 @@ def create_app(test_config=None):
     
     from app.models.category import Category
     from app.models.package import Package
+    from app.models.vote import Votes
 
     db.init_app(app)
     migrate.init_app(app,db)
@@ -28,8 +29,8 @@ def create_app(test_config=None):
     from .routes import package_bp
     app.register_blueprint(package_bp)
 
-    from .routes import vote_bp
-    app.register_blueprint(vote_bp)
+    from .routes import votes_bp
+    app.register_blueprint(votes_bp)
 
     CORS(app)
     return app

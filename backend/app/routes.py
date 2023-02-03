@@ -4,10 +4,11 @@ import requests
 import os
 from app.models.category import Category
 from app.models.package import Package
+from app.models.vote import Votes
 
 category_bp = Blueprint("category", __name__, url_prefix="/categories")
 package_bp = Blueprint("package", __name__, url_prefix="/packages")
-vote_bp = Blueprint("vote", __name__, url_prefix="/vote")
+votes_bp = Blueprint("vote", __name__, url_prefix="/votes")
 
 def find_by_id(cls, id):
     try:
@@ -107,6 +108,13 @@ def get_all_packages():
     })
     return jsonify(package_response)
 
+@package_bp.route("/leadershipboard", methods=["GET"])
+def get_leadershipboard_data():
+    sorted_by_votes = Package.query.order_by(Package.votes.desc())
+    sorted = [v.create_response_dict() for v in sorted_by_votes]
+
+    return jsonify(sorted), 200
+
 @package_bp.route("/<package_id>", methods=["GET"])
 def get_one_package(package_id):
   
@@ -140,3 +148,36 @@ def add_votes(package_id):
 
     return make_response(jsonify({"id":package.package_id,"votes": package.votes})),200 
 
+@votes_bp.route("", methods=["GET"])
+def get_all_votes():
+    votes = Votes.query.all()
+
+    vote_response = [vote.create_response_dict() for vote in votes]
+    
+    return jsonify(vote_response), 200
+
+@votes_bp.route("", methods=["POST"])
+def create_votes():
+    request_body = request.get_json()
+
+    try:
+        new_vote = Votes.add_to_database(request_body)
+        
+        db.session.add(new_vote)
+        db.session.commit()
+
+        return make_response(jsonify(new_vote.create_response_dict())), 201
+
+    except:
+        if not (request_body.get("votes")):
+            abort(make_response({"details": "Invalid data"}, 400))
+
+@votes_bp.route("/<vote_id>", methods=["PATCH"])
+def add_votes(package_id):
+    votes = find_by_id(Votes, package_id)
+
+    votes.votes += 1
+
+    db.session.commit()
+
+    return make_response(jsonify({"id":votes.id,"votes": votes.votes})),200 
