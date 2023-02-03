@@ -4,6 +4,7 @@ import { useState } from "react";
 // import Card from "react-bootstrap/Card";
 
 const PackageURL = "http://localhost:5000/packages";
+const VotesURL = "http://localhost:5000/votes";
 
 const Package = (props) => {
   const [votesCount, setVotesCount] = useState(props.votes);
@@ -16,6 +17,7 @@ const Package = (props) => {
         setVotesCount(votesCount + 1);
         props.setShowVotes(true);
         props.setShowButton(false);
+        props.setShowLeadershipBoard(true);
       })
       .catch((error) => {
         console.log(error);

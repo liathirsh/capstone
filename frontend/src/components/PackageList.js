@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 const PackageList = (props) => {
   const [showButton, setShowButton] = useState(true);
   const [showVotes, setShowVotes] = useState(false);
-  const [showLeadershipBoard, setShowLeadershipBoard] = useState(false);
   const packages = props.packages;
 
   useEffect(() => {
     setShowButton(true);
     setShowVotes(false);
+    props.setShowLeadershipBoard(false);
   }, [packages]);
 
   return (
@@ -25,6 +25,8 @@ const PackageList = (props) => {
           setShowButton={setShowButton}
           showVotes={showVotes}
           setShowVotes={setShowVotes}
+          showLeadershipBoard={props.showLeadershipBoard}
+          setShowLeadershipBoard={props.setShowLeadershipBoard}
         />
       ))}
     </div>

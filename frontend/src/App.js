@@ -15,10 +15,11 @@ const App = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [packageData, setPackageData] = useState([]);
   //const [displayButton, setDisplayButton] = useState(false);
-  //const [allPackageData, setAllPackageData] = useState({});
+  const [allPackageData, setAllPackageData] = useState({});
   const [showLeadershipBoard, setShowLeadershipBoard] = useState(false);
-  const [leadershipBoardData, setLeadershipBoardData] = useState([]);
   const [sortedPackages, setSortedPackages] = useState(packageData);
+  const [leadershipBoardData, setLeadershipBoardData] = useState([]);
+
   const [selectedCategory, setSelectedCategory] = useState({
     title: "",
     description: "",
@@ -44,24 +45,24 @@ const App = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(PackageURL)
-  //     .then((response) => {
-  //       const allPackages = response.data.map((eachPackage) => {
-  //         return {
-  //           id: eachPackage.id,
-  //           title: eachPackage.title,
-  //           votes: eachPackage.votes,
-  //           categoryId: eachPackage.category_id,
-  //         };
-  //       });
-  //       setLeadershipBoardData(allPackages);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(PackageURL)
+      .then((response) => {
+        const allPackages = response.data.map((eachPackage) => {
+          return {
+            id: eachPackage.id,
+            title: eachPackage.title,
+            votes: eachPackage.votes,
+            categoryId: eachPackage.category_id,
+          };
+        });
+        setAllPackageData(allPackages);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleCategoryClicked = (id) => {
     const category = categoryData.find((category) => {
@@ -106,7 +107,7 @@ const App = () => {
 
   const topThreePackages = () => {
     setLeadershipBoardData(
-      [...leadershipBoardData].sort((a, b) => {
+      [...allPackageData].sort((a, b) => {
         if (a.votes < b.votes) {
           return -1;
         } else if (b.votes < a.votes) {
@@ -116,7 +117,7 @@ const App = () => {
         }
       })
     );
-    setLeadershipBoardData(leadershipBoardData.slice(0, 3));
+    //setLeadershipBoardData(leadershipBoardData.slice(0, 3));
   };
 
   // write a function that takes all of the votes and sees who has the most
@@ -208,16 +209,18 @@ const App = () => {
           <section>
             <PackageList
               packages={packageData}
-              showLeadershipBoard={topThreePackages}
+              showLeadershipBoard={showLeadershipBoard}
+              setShowLeadershipBoard={setShowLeadershipBoard}
             />
+            {showLeadershipBoard && (
+              <LeadershipBoard
+                packageData={allPackageData}
+                onBoardClicked={topThreePackages}
+                //onLeadershipBoardClicked={getAllPackages}
+              />
+            )}
           </section>
         </section>
-        {/* <h2 onClick={() => setShowLeadershipBoard(!showLeadershipBoard)}>
-        {" "}
-        Click here when you're done voting
-        {showLeadershipBoard === true ? { topThreePackages } : "Learn More"}
-      </h2>
-      <LeadershipBoard leadershipData={leadershipBoardData}></LeadershipBoard> */}
       </span>
     </div>
   );

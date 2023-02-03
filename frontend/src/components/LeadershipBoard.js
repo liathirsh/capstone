@@ -1,22 +1,21 @@
-// import { useState } from "react";
+const LeadershipBoard = (props) => {
+  console.log("leadershipboard", props);
+  const returnLeadershipBoard = props.packageData.map((item) => {
+    return (
+      <div key={item.id}>
+        <li>
+          <h1>{item.title}</h1>
+        </li>
+      </div>
+    );
+  });
 
-// const LeadershipBoard = (props) => {
-//   const showLeadershipBoard = props.leadershipData.map((data) => {
-//     return (
-//       <div key={data.id}>
-//         <li onClick={() => props.leadershipData(data.id)}>
-//           {" "}
-//           {data.title} {data.category}
-//         </li>
-//       </div>
-//     );
-//   });
-//   return (
-//     <div>
-//       <h1> LeadershipBoard</h1>
-//       <ul> {showLeadershipBoard} </ul>
-//     </div>
-//   );
-// };
+  return (
+    <div>
+      <h1> LeadershipBoard</h1>
+      <ul> {returnLeadershipBoard}</ul>
+    </div>
+  );
+};
 
-// export default LeadershipBoard;
+export default LeadershipBoard;
