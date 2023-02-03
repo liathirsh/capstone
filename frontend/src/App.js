@@ -58,7 +58,7 @@ const App = () => {
           };
         });
         setAllPackageData(
-          [...allPackageData].sort((a, b) => {
+          [...allPackages].sort((a, b) => {
             if (a.votes < b.votes) {
               return 1;
             } else if (b.votes < a.votes) {
