@@ -1,11 +1,10 @@
 const LeadershipBoard = (props) => {
-  console.log("leadershipboard", props);
   const returnLeadershipBoard = props.packageData.map((item) => {
     return (
       <tr class="table-primary">
         <th scope="row">{item.title}</th>
         <td>{item.votes}</td>
-        <td>"Category Placeholder"</td>
+        <td></td>
       </tr>
     );
   });

@@ -1,4 +1,5 @@
 import "./App.css";
+import { useOutletContext, useParams } from "react-router-dom";
 
 import Category from "./components/Category";
 import PackageList from "./components/PackageList";
@@ -14,12 +15,8 @@ const PackageURL = "http://localhost:5000/packages";
 const App = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [packageData, setPackageData] = useState([]);
-  //const [displayButton, setDisplayButton] = useState(false);
   const [allPackageData, setAllPackageData] = useState({});
   const [showLeadershipBoard, setShowLeadershipBoard] = useState(false);
-  const [sortedPackages, setSortedPackages] = useState(packageData);
-  const [leadershipBoardData, setLeadershipBoardData] = useState([]);
-
   const [selectedCategory, setSelectedCategory] = useState({
     title: "",
     description: "",
@@ -47,7 +44,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(PackageURL)
+      .get(`${PackageURL}/leadershipboard`)
       .then((response) => {
         const allPackages = response.data.map((eachPackage) => {
           return {
@@ -57,17 +54,7 @@ const App = () => {
             categoryId: eachPackage.category_id,
           };
         });
-        setAllPackageData(
-          [...allPackages].sort((a, b) => {
-            if (a.votes < b.votes) {
-              return 1;
-            } else if (b.votes < a.votes) {
-              return -1;
-            } else {
-              return 0;
-            }
-          })
-        );
+        setAllPackageData(allPackages);
       })
       .catch((error) => {
         console.log(error);
