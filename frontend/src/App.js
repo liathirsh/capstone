@@ -61,9 +61,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        {/* <Route path="settings" element={<Settings />} />
-        <Route path="home" element={<Home />} />
-        <Route path="homepage" element={<HomePage />} /> */}
+        <Route path="*" element={<NotFound />} />
         <Route path="leaderboard" element={<Leaderboard />} />
       </Routes>
     </BrowserRouter>
