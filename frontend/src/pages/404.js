@@ -1,4 +1,4 @@
-const FourOhFour = () => {
+const NotFound = () => {
   return (
     <div>
       <h1> Oops, sorry that page does not exist!</h1>
@@ -6,4 +6,4 @@ const FourOhFour = () => {
   );
 };
 
-export default FourOhFour;
+export default NotFound;

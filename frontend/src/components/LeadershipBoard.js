@@ -1,4 +1,4 @@
-const LeadershipBoard = (props) => {
+export function LeadershipBoard(props) {
   const returnLeadershipBoard = props.packageData.map((item) => {
     return (
       <tr class="table-primary">
@@ -24,6 +24,4 @@ const LeadershipBoard = (props) => {
       </table>
     </div>
   );
-};
-
-export default LeadershipBoard;
+}

@@ -1,7 +1,7 @@
 import Package from "./Package";
 import { useState, useEffect } from "react";
 
-const PackageList = (props) => {
+export function PackageList(props) {
   const [showButton, setShowButton] = useState(true);
   const [showVotes, setShowVotes] = useState(false);
   const packages = props.packages;
@@ -31,6 +31,6 @@ const PackageList = (props) => {
       ))}
     </div>
   );
-};
+}
 
 export default PackageList;

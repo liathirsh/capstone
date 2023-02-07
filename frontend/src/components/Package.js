@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-// import Button from "react-bootstrap/Button";
-// import Card from "react-bootstrap/Card";
+import { useOutletContext, useParams } from "react-router-dom";
 
 const PackageURL = "http://localhost:5000/packages";
 const VotesURL = "http://localhost:5000/votes";
 
 const Package = (props) => {
+  const { onePackage } = useParams();
   const [votesCount, setVotesCount] = useState(props.votes);
   const [descriptionDisplay, setdescriptionDisplay] = useState(false);
 

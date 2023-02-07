@@ -1,4 +1,4 @@
-const Category = (props) => {
+export function Category(props) {
   const categories = props.categories;
 
   const returnedCategories = categories.map((category) => {
@@ -25,6 +25,4 @@ const Category = (props) => {
       <ul className="list-group"> {returnedCategories} </ul>
     </div>
   );
-};
-
-export default Category;
+}
