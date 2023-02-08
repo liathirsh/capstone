@@ -108,12 +108,58 @@ def get_all_packages():
     })
     return jsonify(package_response)
 
-@package_bp.route("/leadershipboard", methods=["GET"])
-def get_leadershipboard_data():
-    sorted_by_votes = Package.query.order_by(Package.votes.desc())
-    sorted = [v.create_response_dict() for v in sorted_by_votes]
+@package_bp.route("/leaderboard", methods=["GET"])
+def get_leaderboard_data():
+    response = []
+    top_query = """
+    WITH top_packages AS (
+        SELECT c.title as category_title
+    	, p.title as package_name
+    	, p.votes
+        , ROW_NUMBER() OVER(PARTITION BY c.id ORDER BY p.votes DESC) AS rank
+        FROM category c 
+	    JOIN package p 
+	    ON c.id = p.category_id
+        )
+    SELECT *
+    FROM top_packages
+    WHERE rank = 1;
+    """
+    result = db.session.execute(top_query)
+    for r in result:
+        response.append({
+            "category_title": r.category_title,
+            "package_name" : r.package_name,
+            "votes" : r.votes
+    })
 
-    return jsonify(sorted), 200
+    
+    return jsonify(response)
+    # sorted_by_votes = Package.query.order_by(Package.votes.desc())
+    
+    # vote_query = request.args.get("votes")
+    # sort_type = request.args.get("sort")    
+
+    # if title_query is not None:
+    #     tasks = Task.query.filter_by(title=title_query)
+    # elif sort_type == "asc":
+    #     tasks = Task.query.order_by(Task.title.asc())
+    # elif sort_type == "desc":
+    #     tasks = Task.query.order_by(Task.title.desc())
+    # else:
+    #     tasks = Task.query.all()
+
+    # sorted = [v.create_response_dict() for v in sorted_by_votes]
+
+
+    # To retrieve all rows:
+#     result = db.session.query(Category, Package).filter(Category.id == Package.category_id).all()
+
+# # To retrieve individual columns:
+#     result = db.session.query(Category.id, Package.id).filter(Category.id == Package.category_id).all()
+
+
+#     return jsonify(sorted), 200
 
 @package_bp.route("/<package_id>", methods=["GET"])
 def get_one_package(package_id):
