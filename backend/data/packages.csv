@@ -32,4 +32,4 @@ package_id,title,description,votes,category_id
 29,Panda3D,"A 3D game engine for Python, providing a complete set of tools for creating 3D games, including support for graphics, sound, and physics simulation.",0,5
 30,Arcade,"A 2D game development library for Python, providing an easy-to-use API for creating simple games and interactive applications.",0,5
 31,cocos2d,"A 2D game development framework for Python, providing a comprehensive set of tools for creating games, including support for graphics, sound, and input handling.",0,5
-32,PyQuery,"A library that allows you to make jQuery queries on XML documents, it provides a way to extract and manipulate data from HTML pages, and is similar in style to Beautiful Soup.",,3
+32,PyQuery,"A library that allows you to make jQuery queries on XML documents, it provides a way to extract and manipulate data from HTML pages, and is similar in style to Beautiful Soup.",0,3

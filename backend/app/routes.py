@@ -123,7 +123,8 @@ def get_leaderboard_data():
         )
     SELECT *
     FROM top_packages
-    WHERE rank = 1;
+    WHERE rank = 1
+    ORDER BY votes DESC;
     """
     result = db.session.execute(top_query)
     for r in result:
