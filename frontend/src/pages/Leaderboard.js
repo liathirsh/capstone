@@ -37,7 +37,7 @@ export function Leaderboard() {
 
   return (
     <div>
-      <h1> LeadershipBoard</h1>
+      <h1> Leaderboard</h1>
       <table class="table table-hover">
         <thead>
           <tr>

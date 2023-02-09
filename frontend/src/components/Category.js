@@ -11,8 +11,15 @@ export function Category(props) {
       >
         <div className="d-flex w-200 justify-content-between">
           <h1 className="mb-3">{props.title}</h1>
-
-          {/* <small class="text-muted">{category.description}</small> */}
+          <div class="card-body text-secondary">
+            {descriptionDisplay && props.description}
+          </div>
+          <button
+            class="btn btn-outline-primary"
+            onClick={() => setdescriptionDisplay(!descriptionDisplay)}
+          >
+            {descriptionDisplay === true ? "Hide Description" : "Learn More"}
+          </button>
         </div>
       </li>
     </div>
