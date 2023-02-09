@@ -131,7 +131,7 @@ def get_leaderboard_data():
         response.append({
             "category_title": r.category_title,
             "package_name" : r.package_name,
-            "votes" : r.votes
+            "votes" : r.votes,
     })
 
     
