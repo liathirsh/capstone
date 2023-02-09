@@ -1,5 +1,4 @@
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
-// import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { NotFound } from "./pages/404";
 import { Home } from "./pages/Home";
@@ -39,7 +38,7 @@ function App() {
                   </Link>
                 </li>
                 <li class="nav-item">
-                  <Link to="/Leaderboard" class="nav-link">
+                  <Link to="/leaderboard" class="nav-link">
                     Leaderboard
                   </Link>
                 </li>
@@ -59,6 +58,7 @@ function App() {
         </nav>
       </div>
       <Routes>
+        <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />

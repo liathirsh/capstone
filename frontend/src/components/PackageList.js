@@ -9,7 +9,6 @@ export function PackageList(props) {
   useEffect(() => {
     setShowButton(true);
     setShowVotes(false);
-    props.setShowLeadershipBoard(false);
   }, [packages]);
 
   return (
@@ -25,8 +24,6 @@ export function PackageList(props) {
           setShowButton={setShowButton}
           showVotes={showVotes}
           setShowVotes={setShowVotes}
-          showLeadershipBoard={props.showLeadershipBoard}
-          setShowLeadershipBoard={props.setShowLeadershipBoard}
         />
       ))}
     </div>

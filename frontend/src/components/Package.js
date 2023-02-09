@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
 
 const PackageURL = "http://localhost:5000/packages";
-const VotesURL = "http://localhost:5000/votes";
+// const VotesURL = "http://localhost:5000/votes";
 
 const Package = (props) => {
-  const { onePackage } = useParams();
   const [votesCount, setVotesCount] = useState(props.votes);
   const [descriptionDisplay, setdescriptionDisplay] = useState(false);
 
@@ -17,17 +15,12 @@ const Package = (props) => {
         setVotesCount(votesCount + 1);
         props.setShowVotes(true);
         props.setShowButton(false);
-        props.setShowLeadershipBoard(true);
       })
       .catch((error) => {
         console.log(error);
         alert("Unable to vote");
       });
   };
-
-  // bug where votescount only shows up after being refreshed
-  // packages should always show up in the same order
-  //create a function the displays only the first sentence with a ... and then learn more can be the button
 
   return (
     <div class="col">
