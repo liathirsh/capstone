@@ -136,31 +136,6 @@ def get_leaderboard_data():
 
     
     return jsonify(response)
-    # sorted_by_votes = Package.query.order_by(Package.votes.desc())
-    
-    # vote_query = request.args.get("votes")
-    # sort_type = request.args.get("sort")    
-
-    # if title_query is not None:
-    #     tasks = Task.query.filter_by(title=title_query)
-    # elif sort_type == "asc":
-    #     tasks = Task.query.order_by(Task.title.asc())
-    # elif sort_type == "desc":
-    #     tasks = Task.query.order_by(Task.title.desc())
-    # else:
-    #     tasks = Task.query.all()
-
-    # sorted = [v.create_response_dict() for v in sorted_by_votes]
-
-
-    # To retrieve all rows:
-#     result = db.session.query(Category, Package).filter(Category.id == Package.category_id).all()
-
-# # To retrieve individual columns:
-#     result = db.session.query(Category.id, Package.id).filter(Category.id == Package.category_id).all()
-
-
-#     return jsonify(sorted), 200
 
 @package_bp.route("/<package_id>", methods=["GET"])
 def get_one_package(package_id):
@@ -194,6 +169,7 @@ def add_votes(package_id):
     db.session.commit()
 
     return make_response(jsonify({"id":package.package_id,"votes": package.votes})),200 
+
 
 @votes_bp.route("", methods=["GET"])
 def get_all_votes():
