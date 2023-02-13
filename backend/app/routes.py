@@ -108,12 +108,34 @@ def get_all_packages():
     })
     return jsonify(package_response)
 
-@package_bp.route("/leadershipboard", methods=["GET"])
-def get_leadershipboard_data():
-    sorted_by_votes = Package.query.order_by(Package.votes.desc())
-    sorted = [v.create_response_dict() for v in sorted_by_votes]
+@package_bp.route("/leaderboard", methods=["GET"])
+def get_leaderboard_data():
+    response = []
+    top_query = """
+    WITH top_packages AS (
+        SELECT c.title as category_title
+    	, p.title as package_name
+    	, p.votes
+        , ROW_NUMBER() OVER(PARTITION BY c.id ORDER BY p.votes DESC) AS rank
+        FROM category c 
+	    JOIN package p 
+	    ON c.id = p.category_id
+        )
+    SELECT *
+    FROM top_packages
+    WHERE rank = 1
+    ORDER BY votes DESC;
+    """
+    result = db.session.execute(top_query)
+    for r in result:
+        response.append({
+            "category_title": r.category_title,
+            "package_name" : r.package_name,
+            "votes" : r.votes,
+    })
 
-    return jsonify(sorted), 200
+    
+    return jsonify(response)
 
 @package_bp.route("/<package_id>", methods=["GET"])
 def get_one_package(package_id):
@@ -147,6 +169,7 @@ def add_votes(package_id):
     db.session.commit()
 
     return make_response(jsonify({"id":package.package_id,"votes": package.votes})),200 
+
 
 @votes_bp.route("", methods=["GET"])
 def get_all_votes():

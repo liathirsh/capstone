@@ -5,7 +5,7 @@ class Votes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     votes=db.Column(db.Integer)
     package_name=db.Column(db.String)
-    
+
 
     def create_response_dict (self):
         return {

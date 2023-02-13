@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-// import Button from "react-bootstrap/Button";
-// import Card from "react-bootstrap/Card";
 
 const PackageURL = "http://localhost:5000/packages";
-const VotesURL = "http://localhost:5000/votes";
+// const VotesURL = "http://localhost:5000/votes";
 
 const Package = (props) => {
   const [votesCount, setVotesCount] = useState(props.votes);
@@ -17,17 +15,12 @@ const Package = (props) => {
         setVotesCount(votesCount + 1);
         props.setShowVotes(true);
         props.setShowButton(false);
-        props.setShowLeadershipBoard(true);
       })
       .catch((error) => {
         console.log(error);
         alert("Unable to vote");
       });
   };
-
-  // bug where votescount only shows up after being refreshed
-  // packages should always show up in the same order
-  //create a function the displays only the first sentence with a ... and then learn more can be the button
 
   return (
     <div class="col">
@@ -42,6 +35,7 @@ const Package = (props) => {
             <h3 class="card-subtitle mb-2 text-muted text-center">
               {props.showVotes && votesCount}
             </h3>
+
             <div class="text-center">
               {props.showButton && (
                 <button
@@ -62,7 +56,7 @@ const Package = (props) => {
             onClick={() => setdescriptionDisplay(!descriptionDisplay)}
           >
             {descriptionDisplay === true ? "Hide Description" : "Learn More"}
-          </button>
+          </button>{" "}
         </section>
       </div>
     </div>

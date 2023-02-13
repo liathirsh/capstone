@@ -1,7 +1,7 @@
 import Package from "./Package";
 import { useState, useEffect } from "react";
 
-const PackageList = (props) => {
+export function PackageList(props) {
   const [showButton, setShowButton] = useState(true);
   const [showVotes, setShowVotes] = useState(false);
   const packages = props.packages;
@@ -9,7 +9,6 @@ const PackageList = (props) => {
   useEffect(() => {
     setShowButton(true);
     setShowVotes(false);
-    props.setShowLeadershipBoard(false);
   }, [packages]);
 
   return (
@@ -25,12 +24,10 @@ const PackageList = (props) => {
           setShowButton={setShowButton}
           showVotes={showVotes}
           setShowVotes={setShowVotes}
-          showLeadershipBoard={props.showLeadershipBoard}
-          setShowLeadershipBoard={props.setShowLeadershipBoard}
         />
       ))}
     </div>
   );
-};
+}
 
 export default PackageList;
