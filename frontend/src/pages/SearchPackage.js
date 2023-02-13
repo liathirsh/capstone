@@ -49,7 +49,7 @@ export function SearchPackage() {
       <br></br>
       <h3 class="text-info">
         {" "}
-        <strong>Rank: </strong> {APIPackageData.rank}
+        <strong>Download Popularity: </strong> {APIPackageData.rank}
       </h3>
       <br></br>
       <h3 class="text-info">

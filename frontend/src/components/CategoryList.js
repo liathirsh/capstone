@@ -5,7 +5,7 @@ export function CategoryList(props) {
   const categories = props.categories;
 
   return (
-    <div class="container">
+    <div class="container row">
       <div class="row">
         {categories.map((category, id) => (
           <Category
