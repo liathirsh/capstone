@@ -3,6 +3,7 @@ import { About } from "./pages/About";
 import { NotFound } from "./pages/404";
 import { Home } from "./pages/Home";
 import { Leaderboard } from "./pages/Leaderboard";
+import { SearchPackage } from "./pages/SearchPackage";
 
 function App() {
   return (
@@ -42,18 +43,13 @@ function App() {
                     Leaderboard
                   </Link>
                 </li>
+                <li class="nav-item">
+                  <Link to="/search" class="nav-link">
+                    Find a Package
+                  </Link>
+                </li>
               </ul>
             </div>
-            <form class="d-flex">
-              <input
-                class="form-control me-sm-2"
-                type="search"
-                placeholder="Search"
-              />
-              <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-                Search
-              </button>
-            </form>
           </div>
         </nav>
       </div>
@@ -63,6 +59,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
         <Route path="leaderboard" element={<Leaderboard />} />
+        <Route path="/search" element={<SearchPackage />} />
       </Routes>
     </BrowserRouter>
   );

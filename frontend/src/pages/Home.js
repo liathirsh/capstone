@@ -5,12 +5,15 @@ import { PackageList } from "../components/PackageList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootswatch/dist/journal/bootstrap.min.css";
+import { SearchPackage } from "./SearchPackage";
 
 const URL = "http://localhost:5000/categories";
 
 export function Home() {
   const [categoryData, setCategoryData] = useState([]);
   const [packageData, setPackageData] = useState([]);
+  const [showOnePackagePage, setShowOnePackagePage] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState({
     title: "",
     description: "",
@@ -80,6 +83,12 @@ export function Home() {
       <span class="border border-primary">
         <section class="container">
           <div class="row">
+            <h1> Categories </h1>
+            <h6 class="text-muted">
+              {" "}
+              Click on a category to see the packages and vote{" "}
+            </h6>
+            <h1> </h1>
             <CategoryList
               categories={categoryData}
               onCategoryClicked={handleCategoryClicked}

@@ -35,6 +35,7 @@ const Package = (props) => {
             <h3 class="card-subtitle mb-2 text-muted text-center">
               {props.showVotes && votesCount}
             </h3>
+
             <div class="text-center">
               {props.showButton && (
                 <button
@@ -55,7 +56,7 @@ const Package = (props) => {
             onClick={() => setdescriptionDisplay(!descriptionDisplay)}
           >
             {descriptionDisplay === true ? "Hide Description" : "Learn More"}
-          </button>
+          </button>{" "}
         </section>
       </div>
     </div>

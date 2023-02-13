@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export function Category(props) {
-  console.log(props);
   const [descriptionDisplay, setdescriptionDisplay] = useState(false);
   return (
     <div className="col" key={props.id}>
