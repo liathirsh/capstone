@@ -25,5 +25,3 @@ This is a student developer project.
 * Flask - Python web framework 
 * SQL Alchemy - Easy interaction with the PostgreSQL database
 * Postgres - Database
-
-
